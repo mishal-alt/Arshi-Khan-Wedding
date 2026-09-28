@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Flower2, Sparkles, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import { coupleData } from "../../data/weddingData";
+import { Ornament } from "../ui/Ornament";
 
 export const GreetingSection: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -45,114 +46,95 @@ export const GreetingSection: React.FC = () => {
   ];
 
   return (
-    <>
+    <div className="section-wine pattern-on-dark overflow-hidden">
       {/* SECTION 1: STANDALONE COUNTDOWN */}
-      <section id="countdown" className="pt-16 pb-12 px-5 relative z-10 bg-[transparent]">
+      <section id="countdown" className="pt-20 pb-6 px-5 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 45, scale: 0.93 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.25 }}
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-xs mx-auto"
+          className="w-full max-w-xs mx-auto text-center"
         >
-          <div className="bg-[#06402B]/60 backdrop-blur-md/95 backdrop-blur-xl border border-[#B78846]/50 rounded-[28px] p-5 shadow-xl text-center">
-            <p className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-semibold mb-3.5 flex items-center justify-center gap-1.5 font-poppins">
-              <Clock className="w-3.5 h-3.5 text-[#B78846]" />
-              <span>COUNTDOWN TO OUR UNION</span>
-            </p>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-brass-400 font-semibold mb-5 flex items-center justify-center gap-2 font-poppins">
+            <Clock className="w-3.5 h-3.5" />
+            <span>COUNTDOWN TO OUR UNION</span>
+          </p>
 
-            <div className="grid grid-cols-4 gap-2.5">
-              {timeUnits.map((unit) => (
-                <div
-                  key={unit.label}
-                  className="bg-[transparent] border border-[rgba(212,175,55,0.3)] rounded-2xl p-2.5 flex flex-col items-center justify-center shadow-inner"
-                >
-                  <span className="text-2xl font-playfair font-bold text-[#D4AF37] tabular-nums">
-                    {String(unit.value).padStart(2, "0")}
-                  </span>
-                  <span className="text-[9px] uppercase tracking-wider text-[#1A1A1A]/60 font-semibold mt-1 font-poppins">
-                    {unit.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-4 gap-2">
+            {timeUnits.map((unit) => (
+              <div
+                key={unit.label}
+                className="frame-brass rounded-md py-3.5 px-1 flex flex-col items-center justify-center bg-wine-950/40"
+              >
+                <span className="text-[1.6rem] leading-none font-playfair font-bold text-brass-300 tabular-nums">
+                  {String(unit.value).padStart(2, "0")}
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.2em] text-paper/60 font-medium mt-2 font-poppins">
+                  {unit.label}
+                </span>
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Elegant Floral Section Divider between Countdown and Divine Blessing */}
-        <div className="w-full max-w-xs mx-auto mt-14 mb-2 flex items-center justify-center gap-3 text-[#B78846]">
-          <span className="h-[1px] w-14 bg-gradient-to-r from-transparent to-[#B78846]/60" />
-          <Flower2 className="w-4 h-4 text-[#B78846]" />
-          <span className="h-[1px] w-14 bg-gradient-to-l from-transparent to-[#B78846]/60" />
-        </div>
+        <Ornament className="w-full max-w-xs mx-auto mt-14" />
       </section>
 
       {/* SECTION 2: STANDALONE DIVINE BLESSING */}
-      <section id="greeting" className="pt-10 pb-20 px-5 relative z-10 bg-[transparent]">
+      <section id="greeting" className="pt-8 pb-20 px-5 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.93 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.25 }}
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="w-full max-w-xs mx-auto"
         >
-          {/* Elegant Framed Card */}
-          <div className="relative bg-[#06402B]/60 backdrop-blur-md/95 border-2 border-[#B78846]/60 rounded-[28px] p-7 shadow-2xl overflow-hidden text-center flex flex-col items-center">
-            {/* Corner Floral Ornaments */}
-            <div className="absolute top-2.5 left-2.5 text-[rgba(212,175,55,0.3)] opacity-70">
-              <Flower2 className="w-6 h-6 rotate-45" />
-            </div>
-            <div className="absolute top-2.5 right-2.5 text-[rgba(212,175,55,0.3)] opacity-70">
-              <Flower2 className="w-6 h-6 -rotate-45" />
-            </div>
-            <div className="absolute bottom-2.5 left-2.5 text-[rgba(212,175,55,0.3)] opacity-70">
-              <Flower2 className="w-6 h-6 -rotate-135" />
-            </div>
-            <div className="absolute bottom-2.5 right-2.5 text-[rgba(212,175,55,0.3)] opacity-70">
-              <Flower2 className="w-6 h-6 rotate-135" />
-            </div>
-
-            {/* Top Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[transparent] border border-[rgba(212,175,55,0.3)] text-[10px] uppercase tracking-widest text-[#D4AF37] font-semibold mb-6 font-poppins">
-              <Sparkles className="w-3 h-3 text-[#B78846]" />
-              <span>DIVINE BLESSING</span>
+          <div className="frame-brass relative bg-wine-950/45 rounded-md px-7 py-10 text-center flex flex-col items-center">
+            {/* Label */}
+            <div className="flex items-center gap-3 mb-7">
+              <span className="h-px w-6 bg-brass-400/60" />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-brass-400 font-semibold font-poppins">
+                DIVINE BLESSING
+              </span>
+              <span className="h-px w-6 bg-brass-400/60" />
             </div>
 
             {/* Bismillah Calligraphy */}
-            <h2 className="text-2xl font-calligraphy text-[#D4AF37] leading-relaxed drop-shadow-sm mb-1">
+            <h2 className="text-[1.7rem] font-arabic text-brass-300 leading-[1.9] mb-1" dir="rtl" lang="ar">
               {coupleData.bismillahArabic}
             </h2>
-            <p className="text-[10px] uppercase tracking-wider text-[#D4AF37]/60 font-poppins mb-6 italic">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-paper/55 font-poppins mb-6 italic">
               {coupleData.bismillahTransliteration}
             </p>
 
-            <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#B78846] to-transparent mb-6" />
+            <Ornament className="mb-6 scale-90" />
 
             {/* Islamic Greeting */}
-            <h3 className="text-sm font-playfair font-bold text-[#D4AF37] mb-3 tracking-wide">
+            <h3 className="text-[15px] leading-snug font-playfair font-bold text-brass-300 mb-4 tracking-wide">
               {coupleData.islamicGreeting}
             </h3>
 
             {/* Invitation Message */}
-            <p className="text-xs text-[#1A1A1A]/80 font-poppins leading-relaxed mb-6 font-light">
+            <p className="text-[12.5px] text-paper/85 font-poppins leading-[1.9] mb-8 font-light">
               {coupleData.greetingIntro}
             </p>
 
             {/* Quranic Verse Block */}
-            <div className="w-full bg-[transparent]/80 border border-[rgba(212,175,55,0.3)] rounded-2xl p-4 mt-1 relative">
-              <p className="text-sm font-calligraphy text-[#D4AF37] leading-relaxed mb-2">
+            <div className="w-full border-t border-b border-brass-500/40 py-6">
+              <p className="text-[1.15rem] font-arabic text-brass-300 leading-[2.1] mb-4" dir="rtl" lang="ar">
                 {coupleData.quranVerseArabic}
               </p>
-              <p className="text-[11px] font-playfair italic text-[#1A1A1A]/75 leading-relaxed mb-2">
-                "{coupleData.quranVerseEnglish}"
+              <p className="text-[12.5px] font-playfair italic text-paper/85 leading-relaxed mb-4">
+                &ldquo;{coupleData.quranVerseEnglish}&rdquo;
               </p>
-              <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-bold block font-poppins">
+              <span className="text-[10px] uppercase tracking-[0.22em] text-brass-400 font-semibold block font-poppins">
                 — {coupleData.quranReference}
               </span>
             </div>
           </div>
         </motion.div>
       </section>
-    </>
+    </div>
   );
 };

@@ -97,8 +97,8 @@ export const HeroSection: React.FC = () => {
 
         {/* Stacked Serif Names */}
         <div className="flex flex-col items-center my-2">
-          <h1 className="text-4xl sm:text-5xl font-playfair font-normal text-white tracking-wide leading-none drop-shadow-sm my-1">
-            {coupleData.groomName || "Arish Siddiqui"}
+          <h1 className="text-[2.75rem] sm:text-6xl font-playfair font-normal text-white tracking-wide leading-none drop-shadow-sm my-1">
+            {coupleData.brideName || "Arshi Khan"}
           </h1>
 
           <span className="text-3xl sm:text-4xl font-calligraphy text-white my-3.5 block italic">
@@ -106,7 +106,7 @@ export const HeroSection: React.FC = () => {
           </span>
 
           <h1 className="text-4xl sm:text-5xl font-playfair font-normal text-white tracking-wide leading-none drop-shadow-sm my-1">
-            {coupleData.brideName || "Arshi Khan"}
+            {coupleData.groomName || "Arish Siddiqui"}
           </h1>
         </div>
 

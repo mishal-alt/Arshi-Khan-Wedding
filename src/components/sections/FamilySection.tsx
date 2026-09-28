@@ -6,7 +6,7 @@ import { Sparkles, Users, Heart } from "lucide-react";
 import { familyData } from "../../data/weddingData";
 
 export const FamilySection: React.FC = () => {
-  const [activeSide, setActiveSide] = useState<"bride" | "groom">("groom");
+  const [activeSide, setActiveSide] = useState<"bride" | "groom">("bride");
 
   const filteredMembers = familyData.filter((member) => member.side === activeSide);
 
@@ -37,17 +37,6 @@ export const FamilySection: React.FC = () => {
         {/* Side Tabs Switcher */}
         <div className="flex rounded-full bg-[#06402B]/60 backdrop-blur-md border border-[rgba(212,175,55,0.3)] p-1.5 mb-8 shadow-md">
           <button
-            onClick={() => setActiveSide("groom")}
-            className={`flex-1 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
-              activeSide === "groom"
-                ? "bg-gradient-to-r from-[#D4AF37] to-[#B78846] text-white shadow-md"
-                : "text-[#D4AF37]/80 hover:bg-[transparent]"
-            }`}
-          >
-            <Users className="w-3.5 h-3.5" />
-            <span>Groom Family</span>
-          </button>
-          <button
             onClick={() => setActiveSide("bride")}
             className={`flex-1 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
               activeSide === "bride"
@@ -57,6 +46,17 @@ export const FamilySection: React.FC = () => {
           >
             <Heart className="w-3.5 h-3.5" />
             <span>Bride Family</span>
+          </button>
+          <button
+            onClick={() => setActiveSide("groom")}
+            className={`flex-1 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
+              activeSide === "groom"
+                ? "bg-gradient-to-r from-[#D4AF37] to-[#B78846] text-white shadow-md"
+                : "text-[#D4AF37]/80 hover:bg-[transparent]"
+            }`}
+          >
+            <Users className="w-3.5 h-3.5" />
+            <span>Groom Family</span>
           </button>
         </div>
 
@@ -89,7 +89,7 @@ export const FamilySection: React.FC = () => {
                 {/* Blessing Text */}
                 <div className="bg-[transparent]/70 border border-[rgba(212,175,55,0.3)]/60 rounded-2xl p-3 text-center w-full">
                   <p className="text-[11px] font-playfair italic text-[#D4AF37] leading-relaxed">
-                    "{member.blessing}"
+                    &ldquo;{member.blessing}&rdquo;
                   </p>
                 </div>
               </motion.div>

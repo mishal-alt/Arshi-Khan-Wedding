@@ -14,6 +14,7 @@ import { coupleData } from "../data/weddingData";
 
 export default function Home() {
   const [hasEntered, setHasEntered] = useState<boolean>(false);
+  const [musicRequested, setMusicRequested] = useState<boolean>(false);
 
   const handleEnterCelebration = () => {
     setHasEntered(true);
@@ -27,10 +28,17 @@ export default function Home() {
       */}
       <div className="mobile-invitation-container min-h-screen sm:min-h-[844px] sm:max-h-[94vh] sm:rounded-[36px] sm:overflow-y-auto sm:shadow-2xl sm:ring-8 sm:ring-[#8B6B4A]/10 no-scrollbar">
         {/* Section 1: Splash Screen */}
-        <LoadingScreen onEnter={handleEnterCelebration} />
+        <LoadingScreen
+          onEnter={handleEnterCelebration}
+          onOpen={() => setMusicRequested(true)}
+        />
 
         {/* Floating Controls: Scroll progress bar right inside frame & floating Audio/Share pills */}
-        <FloatingControls audioUrl={coupleData.audioUrl} hasEntered={hasEntered} />
+        <FloatingControls
+          audioUrl={coupleData.audioUrl}
+          hasEntered={hasEntered}
+          musicRequested={musicRequested}
+        />
 
         {/* Main Vertical Scrollable Experience (Sections 2 - 10 in exact order) */}
         <div

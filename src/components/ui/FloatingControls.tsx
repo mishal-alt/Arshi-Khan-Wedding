@@ -6,52 +6,75 @@ import { Music, VolumeX } from "lucide-react";
 interface FloatingControlsProps {
   audioUrl: string;
   hasEntered: boolean;
+  musicRequested: boolean;
 }
 
 export const FloatingControls: React.FC<FloatingControlsProps> = ({
   audioUrl,
   hasEntered,
+  musicRequested,
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  // Set once the guest pauses on purpose, so nothing restarts the music behind their back
+  const userPausedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const audio = new Audio(audioUrl);
-      audio.loop = true;
-      audio.volume = 0.5;
+    const audio = new Audio(audioUrl);
+    audio.loop = true;
+    audio.volume = 0.5;
+    audio.preload = "auto";
 
-      audio.onerror = () => {
-        if (audio.src.includes(".m4a")) {
-          audio.src = "/wedding-muhammad-al-muqit.mp3";
-        } else if (!audio.src.includes("/wedding-muhammad-al-muqit.wav")) {
-          audio.src = "/wedding-muhammad-al-muqit.wav";
-        }
-      };
-
-      audioRef.current = audio;
-    }
+    // Keep the button in sync with what the audio element is really doing
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleError = () => {
+      setIsPlaying(false);
+      console.error("Background music failed to load:", audioUrl);
+    };
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("error", handleError);
+    audioRef.current = audio;
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
+      audio.pause();
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("error", handleError);
+      audio.removeAttribute("src");
+      audio.load();
+      audioRef.current = null;
     };
   }, [audioUrl]);
 
-  // Handle auto-start on invitation open
+  // Start the music as soon as the guest opens the invitation
   useEffect(() => {
-    if (hasEntered && audioRef.current && audioRef.current.paused && !isPlaying) {
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => {
-          // Autoplay blocked by browser policy, require user interaction via button
-          console.log("Audio autoplay prevented by browser policy");
-        });
-    }
-  }, [hasEntered, isPlaying]);
+    const audio = audioRef.current;
+    if (!musicRequested || !audio || userPausedRef.current || !audio.paused) return;
+    audio.play().catch(() => {
+      // Autoplay blocked by browser policy; the guest can use the music button
+    });
+  }, [musicRequested]);
+
+  // Stop music while the tab is in the background, resume on return
+  useEffect(() => {
+    let resumeOnReturn = false;
+    const handleVisibility = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (document.hidden) {
+        resumeOnReturn = !audio.paused;
+        audio.pause();
+      } else if (resumeOnReturn && !userPausedRef.current) {
+        resumeOnReturn = false;
+        audio.play().catch(() => {});
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,16 +91,15 @@ export const FloatingControls: React.FC<FloatingControlsProps> = ({
 
   const toggleAudio = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
+    if (audio.paused) {
+      userPausedRef.current = false;
+      audio.play().catch((err) => console.error("Playback error:", err));
     } else {
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch((err) => console.error("Playback error:", err));
+      userPausedRef.current = true;
+      audio.pause();
     }
   };
 

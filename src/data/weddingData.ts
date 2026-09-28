@@ -31,10 +31,10 @@ export const coupleData = {
   quranVerseEnglish: "And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy. Indeed in that are signs for a people who give thought.",
   quranReference: "Surah Ar-Rum [30:21]",
 
-  audioUrl: "/wedding-muhammad-al-muqit.m4a",
+  audioUrl: "/wedding-song.mp3",
   audioTitle: "The Wedding — Muhammad Al Muqit (Nasheed)",
   shareUrl: "https://arshi-and-arish-wedding.invitation/2026",
-  whatsappShareText: "Assalamu Alaikum! You are cordially invited to the wedding celebration of Arish & Arshi on Saturday, 14 November 2026. WhatsApp us at 8871529952. View our digital invitation here: https://arshi-and-arish-wedding.invitation/2026",
+  whatsappShareText: "Assalamu Alaikum! You are cordially invited to the wedding celebration of Arshi & Arish on Saturday, 14 November 2026. WhatsApp us at 8871529952. View our digital invitation here: https://arshi-and-arish-wedding.invitation/2026",
 };
 
 export const eventsData: WeddingEvent[] = [
@@ -177,7 +177,7 @@ export const familyData: FamilyMember[] = [
     relation: "Father of the Groom",
     role: "Beloved Father",
     side: "groom",
-    blessing: "Arish & Arshi, may Allah bless you both and bring you together in all that is good and righteous."
+    blessing: "Arshi & Arish, may Allah bless you both and bring you together in all that is good and righteous."
   },
   {
     id: "fg-2",
@@ -229,7 +229,7 @@ export const giftOptionsData: GiftOption[] = [
     id: "bank-1",
     title: "Direct Bank Transfer",
     type: "bank",
-    accountName: "Arish Siddiqui & Arshi Khan",
+    accountName: "Arshi Khan & Arish Siddiqui",
     accountNumber: "98765432101234",
     ifsc: "MIRAGE000786",
     bankName: "Royal Emirates Islamic Bank"

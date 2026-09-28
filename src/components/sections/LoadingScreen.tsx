@@ -8,15 +8,18 @@ import { coupleData } from "../../data/weddingData";
 
 interface LoadingScreenProps {
   onEnter: () => void;
+  onOpen?: () => void;
 }
 
-export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onEnter }) => {
+export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onEnter, onOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
 
   const handleEnterClick = () => {
     if (isOpening) return;
     setIsOpening(true);
+    // Called synchronously inside the click so the browser lets music start
+    onOpen?.();
 
     // Trigger celebratory golden confetti on opening
     try {

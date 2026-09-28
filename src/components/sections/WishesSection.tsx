@@ -6,6 +6,7 @@ import { Sparkles, MessageSquareHeart, Heart, Send, PlusCircle, CheckCircle2, Ma
 import confetti from "canvas-confetti";
 import { initialWishesData } from "../../data/weddingData";
 import { WishComment } from "../../types";
+import { SectionHeading } from "../ui/SectionHeading";
 
 export const WishesSection: React.FC = () => {
   const [wishes, setWishes] = useState<WishComment[]>([]);
@@ -72,35 +73,22 @@ export const WishesSection: React.FC = () => {
   };
 
   return (
-    <section id="wishes" className="py-16 px-5 relative z-10 bg-[#F8F4EF]">
-      <div className="w-full max-w-xs mx-auto">
+    <section id="wishes" className="section-paper pattern-on-paper py-24 px-5">
+      <div className="w-full max-w-xs mx-auto relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="text-center mb-8"
-        >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E7D7C9] text-[10px] uppercase tracking-widest text-[#8B6B4A] font-semibold mb-2 shadow-sm">
-            <Sparkles className="w-3 h-3 text-[#C4A484]" />
-            <span>WORDS OF BLESSING</span>
-          </div>
-          <h2 className="text-3xl font-playfair font-bold text-[#8B6B4A]">
-            Guest Wishes
-          </h2>
-          <p className="text-xs text-[#8B6B4A]/70 font-poppins mt-1">
-            Send your heartfelt prayers & wishes
-          </p>
-          <div className="w-12 h-0.5 bg-[#C4A484] mx-auto mt-3" />
-        </motion.div>
+        <SectionHeading
+          eyebrow="WORDS OF BLESSING"
+          title="Guest Wishes"
+          subtitle="Send your heartfelt prayers & wishes"
+          className="mb-9"
+        />
 
         {/* Add Wish Trigger / Form */}
         <div className="mb-8">
           {!showForm ? (
             <button
               onClick={() => setShowForm(true)}
-              className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#8B6B4A] to-[#C4A484] text-white font-semibold text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all cursor-pointer"
+              className="w-full py-4 rounded-md bg-wine-900 text-brass-300 border border-brass-500 font-semibold text-[11px] uppercase tracking-[0.22em] flex items-center justify-center gap-2 active:bg-wine-950 hover:bg-wine-800 transition-colors cursor-pointer"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Send a Blessing</span>
@@ -111,12 +99,12 @@ export const WishesSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onSubmit={handleAddWish}
-              className="bg-white border-2 border-[#C4A484] rounded-[24px] p-5 shadow-2xl"
+              className="card-paper rounded-md p-6"
             >
-              <h3 className="text-sm font-playfair font-bold text-[#8B6B4A] mb-1 text-center">
+              <h3 className="text-base font-playfair font-bold text-wine-900 mb-1 text-center">
                 Leave Your Blessing
               </h3>
-              <p className="text-[10px] text-[#8B6B4A]/70 text-center font-poppins mb-3">
+              <p className="text-[10px] text-ink/60 text-center font-poppins mb-4">
                 Your message will be sent via WhatsApp
               </p>
               <input
@@ -126,13 +114,13 @@ export const WishesSection: React.FC = () => {
                 onChange={(e) => setName(e.target.value)}
                 required
                 disabled={isSubmitting}
-                className="w-full text-xs p-2.5 rounded-xl border border-[#E7D7C9] bg-[#F8F4EF] mb-2.5 outline-none focus:border-[#8B6B4A] disabled:opacity-50"
+                className="w-full text-xs p-3 rounded-md border border-brass-500/30 bg-cream text-ink placeholder:text-ink/40 mb-2.5 outline-none focus:border-wine-800 focus:ring-2 focus:ring-wine-800/15 transition disabled:opacity-50"
               />
               <select
                 value={relation}
                 onChange={(e) => setRelation(e.target.value)}
                 disabled={isSubmitting}
-                className="w-full text-xs p-2.5 rounded-xl border border-[#E7D7C9] bg-[#F8F4EF] mb-2.5 outline-none focus:border-[#8B6B4A] text-[#8B6B4A] disabled:opacity-50"
+                className="w-full text-xs p-3 rounded-md border border-brass-500/30 bg-cream text-wine-900 mb-2.5 outline-none focus:border-wine-800 focus:ring-2 focus:ring-wine-800/15 transition disabled:opacity-50"
               >
                 <option value="Family">Family Member</option>
                 <option value="Close Friend">Close Friend</option>
@@ -146,21 +134,21 @@ export const WishesSection: React.FC = () => {
                 required
                 rows={3}
                 disabled={isSubmitting}
-                className="w-full text-xs p-2.5 rounded-xl border border-[#E7D7C9] bg-[#F8F4EF] mb-3 outline-none focus:border-[#8B6B4A] disabled:opacity-50"
+                className="w-full text-xs p-3 rounded-md border border-brass-500/30 bg-cream text-ink placeholder:text-ink/40 mb-3.5 outline-none focus:border-wine-800 focus:ring-2 focus:ring-wine-800/15 transition disabled:opacity-50"
               />
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
                   disabled={isSubmitting}
-                  className="flex-1 py-2.5 rounded-xl border border-[#E7D7C9] text-[#8B6B4A] text-xs font-semibold cursor-pointer disabled:opacity-50"
+                  className="flex-[0.8] py-3 rounded-md border border-brass-500/40 text-wine-900 text-xs font-semibold cursor-pointer disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 py-2.5 rounded-xl bg-[#8B6B4A] text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow-md cursor-pointer disabled:opacity-50"
+                  className="flex-[1.4] py-3 rounded-md bg-wine-900 text-brass-300 border border-brass-500 text-xs font-semibold whitespace-nowrap flex items-center justify-center gap-1.5 shadow-md cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>
@@ -187,42 +175,42 @@ export const WishesSection: React.FC = () => {
                 key={wish.id}
                 initial={{ opacity: 0, y: 35, scale: 0.94 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.2 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-white border border-[#E7D7C9] rounded-[24px] p-5 shadow-xl relative overflow-hidden"
+                className="card-paper rounded-md p-5 relative overflow-hidden"
               >
                 {/* Decorative top accent */}
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#C4A484] to-[#8B6B4A]" />
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-brass-500" />
 
                 <div className="flex justify-between items-start mb-2 pl-2">
                   <div>
-                    <h4 className="text-sm font-playfair font-bold text-[#8B6B4A] flex items-center gap-1.5">
+                    <h4 className="text-sm font-playfair font-bold text-wine-900 flex items-center gap-1.5">
                       {wish.name}
-                      <span className="text-[10px] font-poppins font-normal text-[#C4A484] bg-[#F8F4EF] px-2 py-0.5 rounded-full border border-[#E7D7C9]">
+                      <span className="text-[10px] font-poppins font-normal text-brass-600 bg-cream px-2 py-0.5 rounded-full border border-brass-500/30">
                         {wish.relation}
                       </span>
                     </h4>
                   </div>
-                  <span className="text-[10px] font-poppins text-[#8B6B4A]/60">
+                  <span className="text-[10px] font-poppins text-ink/50">
                     {wish.timestamp}
                   </span>
                 </div>
 
-                <p className="text-xs font-playfair italic text-[#8B6B4A]/90 leading-relaxed pl-2 mb-3">
-                  "{wish.message}"
+                <p className="text-[13px] font-playfair italic text-ink/85 leading-relaxed pl-2 mb-3">
+                  &ldquo;{wish.message}&rdquo;
                 </p>
 
                 <div className="flex justify-end pl-2">
                   <button
                     onClick={() => toggleLike(wish.id)}
                     className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-poppins transition-all cursor-pointer ${likedIds.includes(wish.id)
-                        ? "bg-[#8B6B4A] text-white shadow-sm scale-105"
-                        : "bg-[#F8F4EF] text-[#8B6B4A] hover:bg-[#E7D7C9]/40 border border-[#E7D7C9]"
+                        ? "bg-wine-900 text-brass-300 shadow-sm scale-105"
+                        : "bg-cream text-wine-900 hover:bg-parchment border border-brass-500/30"
                       }`}
                   >
                     <Heart
-                      className={`w-3.5 h-3.5 ${likedIds.includes(wish.id) ? "fill-white text-white" : "text-[#C4A484]"
+                      className={`w-3.5 h-3.5 ${likedIds.includes(wish.id) ? "fill-brass-400 text-brass-400" : "text-brass-600"
                         }`}
                     />
                     <span>{wish.likes}</span>
